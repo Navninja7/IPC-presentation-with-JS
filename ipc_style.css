@@ -1,0 +1,192 @@
+body{
+    zoom:90%;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+p{
+    color:white;
+    position: absolute;
+    bottom: 20px;
+}
+
+::selection{
+    background-color:coral;
+    color: white;
+}
+
+#pro{
+/*
+    color:black;
+    background-color: orange;
+*/
+    transition: all 0.5s;
+}
+
+#con{
+    transition: all 0.5s;
+}
+
+#proexec{
+    transition: all 0.5s;
+}
+#conexec{
+    transition: all 0.5s;
+}
+.array{
+    
+    margin-left: 26%;
+    margin-top: 10%;
+}
+.indices-container{
+    position: absolute;
+    top:5px;
+}
+
+.indices{
+    color:grey;
+    text-align: center;
+    position: relative;
+    top:80px;
+    font-family: 'Consolas',sans-serif;
+    font-size: 42px;
+/*    border: 5px solid dodgerblue;*/
+    margin: 0 50px;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    float:left;
+    border-collapse: collapse;
+    transition:  all 0.4s;
+}
+.array-box{
+    background-image: url('whiteSquare.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-align: center;
+    position: relative;
+    border: 20px solid dodgerblue;
+    margin: -10px;
+    height: 100px;
+    width: 100px;
+    float:left;
+    border-collapse: collapse;
+    transition: background 0.4s linear;
+}
+
+
+.index{
+    position: absolute;
+    transition-duration: 0.4s;
+    font-size: 36px;
+}
+.free-index{
+    position: absolute;
+    bottom: 70px;
+    left: -380%;
+}
+
+.full-index{
+    position: absolute;
+    bottom: -200%;
+    left: -380%;
+}
+
+
+.codes{
+    font-size: 22px;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+    bottom: 0px;
+    margin: 0 -10px;
+    width:  100%;
+    height: 55vh;
+/*    background-color: #445960;*/
+    background-color: #233940;
+    
+}
+
+.producer{
+    width:50%;
+    position: absolute;
+    left:2px;
+    bottom:-15px;
+    
+}
+
+.consumer{
+    width:50%;
+    position: absolute;
+    right:2px;
+    bottom:-15px;
+}
+
+#btn{
+    font-family: 'Consolas';color: blue;border: 10px solid blue;background-color: white;
+    padding: 20px;
+    position: absolute;
+    right: 30px;
+    font-size: 36px;
+    transition: all 0.2s;
+}
+
+#btn:hover{
+    cursor: pointer;
+    border: 10px solid lightgrey;
+    background-color: blue;
+    color: white;
+    transition: all 0.2s;
+}
+
+#btn:active{
+    border: 10px solid black;
+    background-color: darkblue;
+}
+
+
+.nav{
+    z-index: 1;
+    position: absolute;
+    bottom: 40px;
+    font-size: 36px;
+    font-family: 'Consolas',sans-serif;
+    border: 10px solid black;
+    background-color: white;
+    opacity: 0.3;
+    width: 120px;
+    height: 50px;
+    text-align: center;
+    transition: all 0.4s;
+}
+
+.nav:hover,.nxt:hover,.prv:hover{
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.4s;
+}
+
+.nav:active{
+    background-color: purple;
+    color: white;
+}
+.nxt2{
+    right: 50px;
+    text-decoration: none;
+}
+.prv{
+    left: 50px;
+    transition: all 0.4s;
+}
+
+
+.slideCount{
+    position: absolute;
+    top:20px;
+    right: 20px;
+    font-size: 24px;
+    color: black;
+    font-family: 'Consolas',sans-serif;
+}

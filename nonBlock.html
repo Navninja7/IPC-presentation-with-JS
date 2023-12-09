@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300&family=Orbitron&family=Roboto:wght@300&family=VT323&display=swap');
+</style>
+    <link rel="stylesheet" href="messageStyle.css">
+    <title>Message Passing</title>
+    
+    
+</head>
+    <body onload="fun()" onkeydown="nav(event)">
+        <div class="slideCount">Slide: 9/14</div>
+        <a class="nav nxt2" style="display: block; text-decoration: none;" href="main3.html">Next</a>
+        <a class="nav prv2" style="display: block; text-decoration: none;" href="messagePassing.html">Prev</a>
+        <h1 style="background-color: mediumpurple; padding: 20px;margin: 0; color: white; text-align: center; border-bottom: 10px solid purple; margin-bottom: 140px;margin-top: -20px;width: 100%;">Non-Blocking send and Non-blocking Receive</h1>
+        
+        
+        <div> 
+    
+        <button id="btn" style="position: absolute;bottom:35%;left:50px;font-size: 36px;">Send message</button>
+        </div>
+        <div>
+                <textarea class="receiver" style="background-color: white; font-size: 18px;">
+        </textarea>
+        <textarea class="textarea">
+            
+        </textarea>
+        </div>
+        <div id="boxes">
+        
+        </div>
+        
+        <div class="array">
+        <div class="array-box"></div>
+<div class="array-box"></div>
+            <div class="array-box"></div>
+            <div class="array-box"></div>
+            <div class="array-box"></div>
+        </div>
+        
+        <table class="status">
+        <tr>
+            <td></td>
+            <th style="color:white;background-color: royalblue;">Status</th>
+            </tr>
+            
+            <tr>
+            <td style="color: white;background-color: mediumspringgreen;">Sender</td>
+            <td id='senderStatus'></td>
+            </tr>
+            
+            <tr>
+            <td style="color: white;background-color:chartreuse">Receiver</td>
+            <td id='receiverStatus' style="background-image: url(greenLight.png);   "></td>
+            </tr>
+        </table>
+    
+    </body>
+    
+    <script>
+        let i=0;
+        let j=0;
+        let amt=150;
+        let init=200;
+        let box = document.getElementsByClassName('textarea');
+        let abox = document.getElementsByClassName('array-box');
+        document.getElementById('btn').addEventListener("click",function(){
+//            box[i].style.backgroundColor="red";
+            
+                if(box[i].value=="")box[i].value="null";
+            box[i].style.border = "none";
+            box[i].style.transform = "translate(20px,15px)";
+            let tmp = init +(amt*(4-i));
+            if(i>4){
+                tmp=init;
+                tmp2=
+                    setTimeout(function(){
+                for(let i=j;i<=(4+j);i++){
+                    if(i==(j)){
+                        box[i].style.backgroundColor="lightgreen";
+                        box[i].style.transform = "translate(" + (2*init +(amt*(4-(i-j)))+20) +  "px,15px)";
+                    }
+                    else{
+                        if(i==(j+1))box[i].style.backgroundColor="rgba(1,1,1,0)";
+            box[i].style.transform = "translate(" + (2*init +(amt*(4-(i-j)))) +  "px,15px)";
+            box[i].style.color="white";
+                    }
+                }
+                j++;
+            },500);
+            setTimeout(function(){
+                box[j-1].style.opacity=0;
+            },1500);
+            }
+            setTimeout(function(){
+            box[i].style.transform = "translate(" + (tmp) +  "px,15px)";
+                box[i].style.backgroundColor = "dodgerblue";
+            box[i].style.color="white";
+                if(i<=4)
+                abox[4-i].style.backgroundColor="dodgerblue";
+                i++;   
+            },500);
+            
+        let newBox = box[i].cloneNode(false);
+            newBox.style.border="1px solid black";  
+            document.getElementById('boxes').appendChild(newBox);
+            setTimeout(function(){
+                box[i].style.fontSize="36px";
+                box[i].value="";
+            },500);
+        });
+        function fun(){
+            document.body.style.opacity=1;
+        }
+        
+        function nav(event){
+            let key = event.key;
+            if(key == "n"){
+                window.location.href = "main3.html";
+            }
+        }
+    </script>
+</html>

@@ -1,0 +1,174 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+body{
+    background-color: white;
+    font-family: sans-serif;
+    margin:0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    width: 60vw;
+    max-width:350px;
+    margin:20px auto;
+    background-color: beige;
+}
+
+.clock{
+    transform-origin: 50% 50%;      
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    border: 2px solid black;
+    height: min(350px,60vw);
+    width:60vw;
+    border-radius: 50%;
+    position: relative;
+}
+
+.clock .center{
+    position: absolute;
+    margin: auto;
+    height: 1px;
+    left: 50%;
+    border-radius: 50%;
+    width:1px;
+    background-color: orange;
+}
+
+.clock .minhand{
+    z-index: 2;
+    position: absolute;
+    width: 35%;
+    left: 50%;
+    background-color: black;
+    height: 3px;
+    transform-origin: left;
+    transform: rotate(0deg);
+    transition: all 0.1s;
+}
+
+.clock .hrhand{
+    z-index: 2;
+    position: absolute;
+    width: 20%;
+    left: 50%;
+    background-color: black;
+    height:5px;
+    transform-origin: left;
+    transform: rotate(-90deg);
+    transition: all 0.5s;
+}
+
+.clock .sechand{
+    z-index: 2;
+    position: absolute;
+    width: 40%;
+    left: 50%;
+    background-color: red;
+    height: 1px;
+    transform-origin: left;
+    transform: rotate(45deg);
+    transition: all 0.1s;
+}
+
+.clock .label{
+    text-align: center;
+    font-size: 4px;
+    position: relative;
+    top:-30%;
+    left: 43%;
+    font-size: 0.3rem;
+}
+
+
+
+.mark{
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 1px);
+    width: 49%;
+    right: 2px;
+    background: linear-gradient(to right,#eee 90%,green 90%,green);
+    height: 2px;
+    transform: rotate(0deg);
+    transform-origin: 0 0;
+    transition: all 0.5s;
+}
+
+.numberdiv{
+    margin: 0;
+    padding-right: 30px;
+    text-align: right;
+    position: absolute;
+    top: calc(50% - 5px);
+    left:calc(50%);
+    width: 50%;
+    background-color: grey;
+    height: 10px;
+    transform: rotate(  90deg);
+    transform-origin: 0 0;
+    transition: all 0.5s;
+}
+
+.bold{
+    height: 2px;
+}
+
+.input,fieldset{
+    justify-content: flex-end;
+    row-gap:5px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 18px;
+    
+    padding: 50px;
+    width:30vw;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+fieldset{
+    width:50%;  
+}
+
+#set{
+    padding:0 60px;
+    margin:auto;
+}
+
+#line,#line2{
+    z-index: -12;
+    position: absolute;
+    background-color: #eee;
+}
+
+#line{
+    width: 2px;
+    height:80vh;
+}
+
+#line2{
+    width:100%;
+    height: calc(2px);
+}
+#show{
+    display: block;
+}
+
+#fromto{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    max-width:500px;
+}
+
+
+

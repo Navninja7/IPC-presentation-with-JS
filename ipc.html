@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=0.9">
+    <link rel='stylesheet' href="ipc_style.css">
+    <title>Producer-Consumer Problem Demonstration</title>
+    </head>
+    
+    <body onload="fun()" onkeydown="nav(event)">
+        <div class="slideCount" style="font-size: 27px;">Slide: 5/14</div>
+        <a class="nav nxt2" style="text-decoration: none;" href="main2.html">Next</a>
+        <div class="nav prv" id="prv">Prev</div>
+    <div class="array">
+        <div class="indices-container">
+        
+        
+        <div class="indices" style="color: orange;">
+        0
+        </div>
+        <div class="indices">
+        1
+        </div>
+        <div class="indices">
+        2
+        </div>
+        <div class="indices">
+        3
+        </div>
+        <div class="indices">
+        4
+        </div>
+            </div>
+        <div class="array-box">
+            
+            <pre class="index free-index">
+                Free Index
+                &#8595;
+                </pre>
+        
+        <pre class="index full-index">
+                &#8593;
+                Full Index
+                </pre>
+        </div>
+        <div class="array-box"></div>
+        <div class="array-box"></div>
+        <div class="array-box"></div>
+        <div class="array-box"></div>
+        
+      
+        
+        </div>
+          <div class="codes">
+        <div class="producer">
+            <code>
+                
+                <pre>
+                <p>
+<!--                Producer code           -->
+                item nextProduced;
+
+        <span style="color:mediumpurple;">while</span>(<span style="color:orange">1</span>){
+
+        <span style="color: lightgrey;">// check if there is no space</span>
+        <span style="color: lightgrey;">// for production.</span>
+        <span style="color: lightgrey;">// if so keep waiting.</span>
+        <span id="pro"><span style="color:mediumpurple;">while</span>((free_index<span style="color: orangered">+</span><span style="color:orange">1</span>) <span style="color: orangered">%</span> buff_max <span style="color: orangered">== </span> full_index);</span>
+
+        <span id="proexec">shared_buff[free_index] <span style="color: orangered">=</span> nextProduced;
+        free_index <span style="color: orangered">=</span> (free_index <span style="color: orangered">+</span> <span style="color:orange">1</span>) <span style="color: orangered">%</span> buff_max;</span>
+        }</p>
+
+                </pre>
+                
+                </code>
+            </div>
+            <div class="consumer">
+                <code>
+                <pre>
+                <p>
+                
+                <!--                Consumer code           -->
+                item nextConsumed;
+
+        <span style="color:mediumpurple;">while</span>(<span style="color:orange">1</span>){
+
+        <span style="color: lightgrey;">// check if there is an available</span>
+        <span style="color: lightgrey;">// item for consumption.</span>
+        <span style="color: lightgrey;">// if not keep on waiting for</span>
+        <span style="color: lightgrey;">// get them produced.</span>
+        <span id="con"><span style="color:mediumpurple;">while</span>((free_index <span style="color: orangered">==</span> full_index);</span>
+
+        <span id="conexec">nextConsumed <span style="color: orangered">=</span> shared_buff[full_index];
+            full_index <span style="color: orangered">=</span> (full_index <span style="color: orangered">+</span> <span style="color:orange">1</span>) <span style="color: orangered">%</span> buff_max;</span>
+        }
+</p>
+                </pre>
+                
+                
+                </code>
+            </div>
+        </div>
+        <button id='btn'>Next &gt;</button>
+        
+            
+
+    </body>
+    
+    <script>
+    function nav(event){
+        let key = event.key;
+        if(key == "n"){
+            window.location.href = "main2.html";
+        } else if(key == "p"){
+            window.location.href = "main.html";
+        }
+        else if(key == " "){
+            let btn = document.getElementById('btn');
+            btn.click();
+            btn.style.color="white";
+            btn.style.border = "10px solid lightgrey";
+            btn.style.backgroundColor="blue";
+            setTimeout(()=>{
+                btn.style.color="blue";
+                btn.style.backgroundColor="white";
+                btn.style.border = "10px solid blue";
+            },200);
+        }
+    }    
+    let i =document.getElementsByClassName('index');
+        let indices = document.getElementsByClassName('indices');
+        let box = document.getElementsByClassName('array-box');
+        let pro = document.getElementById('pro');
+        let con = document.getElementById('con');
+        let proexec = document.getElementById('proexec');
+        let conexec = document.getElementById('conexec');
+        var amt=120;
+        var initFree=0;
+        var initFull=0;
+        let free=0;
+        let full=0;
+        
+        function dangle(index){
+            setTimeout(function(){
+            index.style.transform = "translateX(50px)";    
+            },1);
+            setTimeout(function(){
+            index.style.transform = "translateX(-50px)";    
+            },0.5);
+            index.style.transform = "translateX(50px)";
+            
+        }
+        function producer(){
+            initFree = (initFree+amt)%600;
+                box[free].style.backgroundImage = "url('carton(png).png')";
+            box[free].style.backgroundPosition="center";
+            i[0].style.transform = "translateX(" + initFree + "px)";
+                indices[free].style.color = "black";
+                indices[free].style.fontWeight = "bold";
+                indices[(free+1)%5].style.color="orange";
+                free = (free+1)%5;
+        }
+        
+        function consumer(){
+            initFull = (initFull+amt)%600;
+                box[full].style.backgroundImage = "url('whiteSquare.png')";
+            i[1].style.transform = "translateX(" + initFull + "px)";
+                indices[full].style.fontWeight = "200";
+                indices[full].style.color = "grey";
+                indices[(full+1)%5].style.color="green";
+                full = (full+1)%5;
+        }
+        
+        let cnt=3;
+        let z=0;
+        document.getElementById('btn').addEventListener("click",function(){
+        console.log("free: " + (free+1)%5);
+            console.log("full: " + (full+1)%5);    
+            if(cnt<0)cnt=3;
+            if(cnt==0)cnt--;
+            if((free+1)%5 != full){
+                if(free == full){
+                    i[1].style.transform = "translateX(" + (initFull+25) + "px)";
+                    i[1].style.color = "red";
+                    setTimeout(function(){
+                        i[1].style.transform = "translateX(" + (initFull-25) + "px)";
+                    },100);
+                    setTimeout(function(){
+                        i[1].style.transform = "translateX(" + (initFull) + "px)";
+                    },200);
+                    setTimeout(function(){
+                        i[1].style.color = "black";
+                    },1000);
+                con.style.backgroundColor="orange";
+                    con.style.color="black";
+                setTimeout(producer,2000);
+                    setTimeout(function(){
+                    proexec.style.backgroundColor="orange";
+                        proexec.style.color="black";    
+                    },700);
+                        setTimeout(function(){
+                            proexec.style.backgroundColor="";
+                        proexec.style.color="white";
+                        },2000);
+                    if(cnt<=3 && cnt>0){   
+                    setTimeout(function(){
+                        con.style.color="white";
+                        con.style.backgroundColor="";
+                    },3000);
+                        cnt--;
+                    }
+                } else {   
+                    if(cnt<=3 && cnt>0){   
+                producer();
+                        
+                        proexec.style.backgroundColor="orange";
+                        proexec.style.color="black";
+                        setTimeout(function(){
+                            proexec.style.backgroundColor="";
+                        proexec.style.color="white";
+                        },2000);
+                        cnt--;
+                    }
+                }
+                }
+            
+            console.log(Math.floor(Math.random()*5));
+            setTimeout(function(){
+               if((free != full)&&(Math.floor(Math.random()*5) > 0)){
+                if((free+1)%5 == full){
+            i[0].style.transform = "translateX(" + (initFree+25) + "px)";
+                    i[0].style.color = "red";
+                    setTimeout(function(){
+                        i[0].style.transform = "translateX(" + (initFree-25) + "px)";
+                    },100);
+                    setTimeout(function(){
+                        i[0].style.transform = "translateX(" + (initFree) + "px)";
+                    },200);
+                    setTimeout(function(){
+                        i[0].style.color = "black";
+                    },1000);
+                pro.style.backgroundColor="orange";
+                    pro.style.color="black";
+                    setTimeout(function(){
+                    conexec.style.backgroundColor="orange";
+                        conexec.style.color="black";    
+                    },700);
+                        setTimeout(function(){
+                            conexec.style.backgroundColor="";
+                        conexec.style.color="white";
+                        },2000);
+                setTimeout(consumer,2000);
+                    setTimeout(function(){
+                        pro.style.backgroundColor="";
+                        pro.style.color="white";
+                    },3000);
+                } else {
+                        conexec.style.backgroundColor="orange";
+                        conexec.style.color="black";
+                        setTimeout(function(){
+                            conexec.style.backgroundColor="";
+                        conexec.style.color="white";
+                        },2000);
+                consumer();
+                }
+            } 
+            },500);
+            
+        });
+        
+        function fun(){
+            document.body.style.opacity=1;
+        }
+    </script>
+</html>

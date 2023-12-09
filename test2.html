@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    
+    <p id="1"></p>
+    </body>
+    
+    <script>
+        
+    function fun(){
+        
+    }
+        
+        
+        let myPromise = new Promise(function(Res,Rej){
+            
+            Res(); 
+            Rej();
+            
+        });
+        
+        myPromise.then(function(value){
+            alert('Hello!');
+        },
+                      function(error){
+            alert("error!");
+        });
+        
+        const obj = JSON.parse('{"name":"Bhaibot","style":"Pleeto"}');
+        let str = JSON.stringify(obj);
+        document.getElementById('1').innerHTML=str;
+    </script>
+</html>

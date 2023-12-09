@@ -1,0 +1,171 @@
+body{
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+h1{
+    font-family: 'Roboto';
+}
+.textarea{
+    z-index: 2;
+    position: absolute;
+    left:100px;
+    top:30%;
+    width:130px;
+    background-color: white;
+    height: 120px;
+    font-size: 36px;
+    transform: translate(20px,15px);
+    text-align:center;
+    transition: all 0.4s;
+}
+.receiver{
+    z-index: -1;
+    position: absolute;
+    left:100px;
+    top:30%;
+    width:130px;
+    background-color: lightgrey;
+    height: 120px;
+    font-size: 36px;
+    transform: translate(20px,15px);
+    text-align:center;
+    transition: all 0.4s;
+    transform: translate(1020px,15px);
+}
+
+
+.queue{
+    display: inline-block;
+    position: relative;
+    left:30%;
+    top:10px;
+    width:45%;
+    height:140px;
+    background-color: darkorange;
+}
+
+.array{
+    margin-left: 25%;
+    margin-top: 0;
+}
+
+.array-box{
+    box-shadow: 10px 10px black;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-align: center;
+    position: relative;
+    top:0px;
+    right: 20px;
+    border: 20px solid dodgerblue;
+    margin: -10px;
+    height: 150px;
+    width: 130px;
+    float:left;
+    border-collapse: collapse;
+    transition: background 0.4s linear;
+}
+
+.nav{
+    position: absolute;
+    bottom: 40px;
+    font-size: 36px;
+    font-family: 'Consolas',sans-serif;
+    border: 10px solid black;
+    background-color: white;
+    opacity: 0.3;
+    width: 120px;
+    height: 50px;
+    text-align: center;
+    transition: all 0.4s;
+}
+
+.nav:hover,.nxt:hover,.prv:hover{
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.4s;
+}
+
+.nav:active{
+    background-color: purple;
+    color: white;
+}
+.nxt{
+    right: 50px;
+    transition: all 0.4s;
+}
+.prv{
+    left: 50px;
+    transition: all 0.4s;
+}
+
+.nxt2{
+    right: 50px;
+    display: none;
+}
+
+.prv2{
+    left:50px;
+    display: none;
+}
+
+
+.slideCount{
+    z-index: 3;
+    position: absolute;
+    top:20px;
+    right: 20px;
+    font-size: 24px;
+    color: white;
+    font-family: 'Consolas',sans-serif;
+}
+
+#btn{
+    border: 10px solid navy;
+    font-family: "Consolas",sans-serif;
+    background-color:   dodgerblue;
+    color: white;
+    transition: all 0.4s;
+}
+#btn:hover{
+    border-color: rosybrown;
+    background-color: antiquewhite;
+    color: dodgerblue;
+    transition: all 0.4s;
+}
+
+#btn:active{
+    background-color:darkkhaki;
+}
+
+.status{
+    border-collapse: collapse;
+    font-size: 36px;
+    position: relative;
+    right:-40%;
+    top:40px;
+    font-family: 'Consolas',sans-serif;
+}
+
+table,td,tr,th{
+    border: 10px solid black;
+    padding: 20px;
+}
+
+#senderStatus{
+    background-image: url(greenLight.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transition: all 0.2s;
+}
+
+#receiverStatus{
+    background-image: url(redLight.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transition: all 0.2s;
+}

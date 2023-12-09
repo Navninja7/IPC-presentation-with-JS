@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="main_style.css">
+    <title>Inter Process Communication</title>
+    </head>
+    
+    <body onload="fun()" onmousemove="getMouse(event)" onkeydown="nav(event)">
+        <audio id="myAudio" src="TYPING%20SOUND%20EFFECT%20(%20NO%20COPYRIGHT%20).mp3"></audio>
+        <div class="nav nxt" id="nxt">Next</div>
+        <a class="nav nxt2" style="text-decoration: none;" href="ipc.html">Next</a>
+        <div class="nav prv" id="prv">Prev</div>
+    
+<!--        Slide 1-->
+        <div class="slides">
+        <div class="intro">
+            <h2><u>Operating Systems</u></h2>
+            <h1>Inter Process Communications</h1>
+            <div style="background-color: rgba(255,255,255,0.6); color: black;padding-left: 20px;">
+            <h4>Agenda: </h4>
+            <h3>1. IPC and its characteristics</h3>
+            <h3>2. Shared Memory and Message Passing</h3>
+            <h3>3. Communication in client/server architecture</h3>
+            <h3>4. Pros and Cons of IPC</h3>      
+                </div>
+            </div>
+        </div>
+        
+        <!--        Slide 2-->
+        <div class="slides">
+        <div class="intro">
+            <h2><u>&#9654;Introduction</u></h2>
+            <h1>Inter Process Communications</h1>
+            <div>IPC stands for <div style="display: inline;"><div id="1" style="position: relative;">Interprocess Communication.<div id="highlight1"></div></div></div></div>
+            <p id='2'></p>
+            <p id='3'></p>
+            <!-- <div class="ball"></div>-->
+            <div class="navPrev"><a>&lt;</a></div><div class="navNext"><a>&gt;</a></div>
+            <div class="inner-Slides"></div>
+            </div>
+        </div>
+        
+        <!--        Slide 3-->
+        <div class="slides">
+        <div class="intro" >
+            <h2><u>Introduction</u></h2>
+            
+            <h1>Characteristics of IPC</h1>
+            <p id='4'></p>
+            <p id='5'></p>
+            <p id='6'></p>
+            <p id='7'></p>   
+            <!-- <div class="ball"></div>-->
+            <div class="navPrev"><a>&lt;</a></div><div class="navNext"><a>&gt;</a></div>
+            <div class="inner-Slides"></div>
+            </div>
+        </div>
+        
+        <!--        Slide 4-->
+        <div class="slides">
+        <div class="intro" >
+            <h2><u>Types of Processes</u></h2>
+            <h1>Shared Memory</h1>
+            <p id='8'></p>
+            <p id='9'></p>
+            <!-- <div class="ball"></div>-->
+            <div class="navPrev"><a>&lt;</a></div><div class="navNext"><a>&gt;</a></div>
+            <div class="inner-Slides"></div>
+            </div>
+        </div>
+        
+        <!--        Slide 5-->
+        <div class="slides">
+            
+        </div>
+    <div class="slideCount"></div>
+    </body>
+    <audio id='myAudio' src="TYPING%20SOUND%20EFFECT%20(%20NO%20COPYRIGHT%20).mp3"></audio>
+    <script>
+        let innerSlides=["It is a medium for the communication of processes.",
+                         "It is a technique where an operating system allows all the independent processes to interact or communicate with each other within a single or multiple systems connected via a network. ",
+                         "IPC synchronizes requests to be implemented simultaneously.",
+                         "So, we can say that each and every individual process runs without affecting each other and the communication between them can be seen as a method of cooperation between them. ",
+                         "1. Synchronous and Asynchronous communication",
+                         "2. Message Destinations",
+                         "3. Reliability",
+                         "4. Ordering",
+                         "It involves sharing of some variables among processes that communicate.",
+                         "Analogy : Producer-Consumer Problem"];
+        let limitSlides=false;
+        let currentInnerText=0;
+            let currentInnerSlideId=2;
+        let intr=0;
+        let ball = document.getElementsByClassName('ball');
+        let bgX=0;
+        let bgY=0;
+        let mouseX=0;
+        let mouseY=0;
+        let t = 0;
+        let slideNo=1;
+    let slides=document.getElementsByClassName('slides');    
+    let nxt=document.getElementById('nxt');
+    let prv=document.getElementById('prv');
+     let thankYouSlide = 9;    
+    let cnt=document.getElementsByClassName('slideCount')[0];
+        function getMouse(event){
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            document.body.style.backgroundPosition=""+ (bgX-5) + "px "+ (bgY-5) + "px";
+//            console.log(mouseX);
+        }
+        setInterval(function(){
+            /*if(t == 5000){
+                t=0;
+                bgX*=-1;
+                bgY*=-1;
+            }*/
+            document.body.style.backgroundPosition=""+ (bgX) + "px "+ (bgY) + "px";
+            bgX+=7;
+            bgY+=7;
+            t+=200;
+        },200);
+    
+        
+        
+        
+    function init(){
+        document.querySelector('body').style.backgroundImage= "url('8bitcomputer.jpg')";
+        prv.style.opacity=0;
+        for(let i=1;i<5;i++){
+            slides[i].style.opacity=0;
+        }
+        cnt.innerHTML="Slide: "+slideNo+"/"+(thankYouSlide+5)+"";
+    }
+    function set(btn){
+        let prevSlide = slideNo;
+        let downScale=0.5;
+        let upScale=1.2;
+        let left=-120;
+        let right=120;
+        if(btn=="nxt")slideNo = Math.min(++slideNo,thankYouSlide);
+        else{
+            slideNo = Math.max(--slideNo,1);
+            downScale=1.2;
+            upScale=0.5;
+        }
+        cnt.innerHTML="Slide: "+slideNo+"/"+(thankYouSlide+5)+"";
+        console.log("Slide no: " + slideNo);
+        slides[prevSlide-1].style.transform = "scale("+downScale+")";
+        slides[prevSlide-1].style.opacity=0;
+        slides[slideNo-1].style.transform = "scale("+upScale+")";
+        slides[slideNo-1].style.opacity = 1;
+        slides[slideNo-1].style.transform = "scale(1)";
+        let txt;
+        if(slideNo > 1){
+            prv.style.opacity=0.3;
+        }
+        if(slideNo < thankYouSlide){
+            nxt.style.opacity=0.3;
+        }
+        if(slideNo == 1){
+            prv.style.opacity=0;
+        }
+        else if(slideNo == 2){
+            limitSlides=false;
+            document.getElementsByClassName('inner-Slides')[slideNo-2].innerHTML=""+(currInnerSlide)+"/"+(maxSlides)+"";
+            setTimeout(function(){
+                document.getElementById('highlight1').style.animation ="mymove 0.7s";
+                document.getElementById('1').style.zIndex="1";
+                document.getElementById('1').style.animation="textColor 2s";
+            },400);
+            setTimeout(function(){
+                document.getElementById('highlight1').style.width = "47%";
+                document.getElementById('1').style.color="black";
+            },1000);
+                
+            
+            
+            
+            
+            /*setTimeout(function(){
+                //myAudio.play();
+                changeBack(txt,'3');
+            },10500);*/
+            /*setTimeout(function(){
+                changeBack(document.getElementById('2').innerHTML,'2');
+            },12000);*/
+            
+            
+            
+            setTimeout(function(){
+                ball[0].style.opacity=1;
+            },15000);
+        }
+        else if(slideNo == 3){
+            limitSlides=false;
+            currInnerSlide=1;
+            maxSlides=5;
+            document.getElementsByClassName('inner-Slides')[slideNo-2].innerHTML=""+(currInnerSlide)+"/"+(maxSlides)+"";
+        }
+        
+        else if(slideNo == 4){
+            limitSlides=false;
+            document.getElementsByClassName('nxt2')[0].style.display="block";
+            currInnerSlide=1;
+            maxSlides=3;
+            document.getElementsByClassName('inner-Slides')[slideNo-2].innerHTML=""+(currInnerSlide)+"/"+(maxSlides)+"";
+            setTimeout(function(){
+                ball[2].style.opacity=1;
+            },6000);
+        }
+        
+        else if(slideNo == 5){
+            document.getElementsByClassName('nxt2').style.display="none";
+        }
+        
+        else if(slideNo == thankYouSlide){
+            nxt.style.opacity=0;
+        }
+        
+    }
+        
+        
+    init();
+        
+        
+        /*Type writer effect */
+        
+        function typeWriter(txt,id){
+            
+        
+        let test = document.getElementById(id);
+    test.innerHTML="";
+    let i=0;
+        let j=0;
+        let word = txt;
+        change();
+        function change(){
+            let z=0;
+            const interval = setInterval(function(){  
+            let Word="";
+            if(j<word.length){  
+                for(l=0;l<=j;l++)Word+=word[l];
+          test.innerHTML=Word+'|';  
+                j++;
+            } else{
+                test.innerHTML=test.innerHTML.substring(0,test.innerHTML.length-1);
+                clearInterval(interval);
+                /*const int2 = setInterval(function(){
+                    z = !z;
+                    if(z)test.innerHTML=test.innerHTML.substring(0,test.innerHTML.length-1);
+                    else test.innerHTML+='|';
+                },200);
+                setTimeout(function(){
+                   if(test.innerHTML[test.innerHTML.length-1]=='|') test.innerHTML=test.innerHTML.substring(0,test.innerHTML.length-1);
+                    clearInterval(int2);
+                },2000);*/
+            }
+            /*if(j==word.length){
+                    bhai=false;
+                clearInterval(interval);
+                setTimeout(changeBack,1000);
+                    j--;
+                }*/
+        },7);
+        }
+        }
+        function changeBack(txt,id){  
+            let test = document.getElementById(id);
+            let word = txt;
+            let j =txt.length;
+        const intv = setInterval(function(){
+            let Word="";
+            if(j>=0){  
+                for(l=0;l<j;l++)Word+=word[l];
+          test.innerHTML=Word+'|';  
+                j--;
+            }if(j==-1){
+                test.innerHTML="";
+                clearInterval(intv);
+                }
+        },4);
+        }
+        /*          */
+    nxt.addEventListener("click",()=>{set("nxt")});
+    prv.addEventListener("click",()=>{set("prv")});
+        
+        function fun(){
+            document.body.style.opacity = 1;
+        }
+        let currInnerSlide=1;
+        let maxSlides=5;
+        function nav(event){
+            let key = event.key;
+            let r = document.getElementsByClassName('navNext')[slideNo-2];
+            let l = document.getElementsByClassName('navPrev')[slideNo-2];
+            let letter;
+            if(key == "n"){
+                if(slideNo == 4)
+                    window.location.href = "ipc.html";
+                set("nxt");
+            }
+            else if(key == "p"){
+                set("prv");
+            }
+            else{
+                
+            
+            if(key == "ArrowRight" || key == "ArrowLeft"){
+                if(key == "ArrowRight")letter=r;
+                else letter=l;
+            
+                letter.style.color = "blue";
+                letter.style.boxShadow = "0 0 10px 5px grey 40px";
+                setTimeout(()=>{
+                    if(currInnerSlide == 1)
+                    l.style.color="rgba(255,255,255,0.6)";
+                    else l.style.color="white";
+                    r.style.color="white";
+                letter.style.backgroundColor="";
+                letter.style.boxShadow = "";
+                },200);
+                
+                if(letter==r){
+                    l.style.color="white";
+                    currInnerSlide=Math.min(currInnerSlide+1,maxSlides);
+                    document.getElementsByClassName('inner-Slides')[slideNo-2].innerHTML=""+(currInnerSlide)+"/"+(maxSlides)+"";
+                    if(currInnerSlide==maxSlides){
+                        setTimeout(()=>{
+                            r.style.color="rgba(255,255,255,0.4)";
+                        },200);
+                    }
+                    
+            if(slideNo == 2 && !limitSlides){
+                maxSlides = 5;
+                if(currentInnerSlideId == 4){
+                    changeBack(innerSlides[currentInnerText-1],currentInnerSlideId-1);
+                    setTimeout(()=>{
+                        changeBack(innerSlides[currentInnerText-2],currentInnerSlideId-2);
+                        currentInnerSlideId-=2;
+                    },1000);
+                    setTimeout(()=>{
+                        typeWriter(innerSlides[currentInnerText++],currentInnerSlideId++);
+                    },1600);
+                    
+                } else{
+            typeWriter(innerSlides[currentInnerText++],currentInnerSlideId++);
+                    if(currentInnerText==4)currentInnerSlideId=4;
+            }
+                if(maxSlides == currInnerSlide)limitSlides=true;
+            }
+                    
+                
+            else if(slideNo == 3 && !limitSlides){
+                maxSlides = 5;
+                typeWriter(innerSlides[currentInnerText++],currentInnerSlideId++);
+                if(maxSlides == currInnerSlide)limitSlides=true;
+            } else if(slideNo == 4 && !limitSlides){
+                maxSlides = 3;
+                typeWriter(innerSlides[currentInnerText++],currentInnerSlideId++);
+                if(maxSlides == currInnerSlide)limitSlides=true;
+            }
+            }
+            }
+            }
+        }
+        
+        function lerp(x,y,t){
+            return x + (y-x)*t;
+        }
+    </script>
+</html>

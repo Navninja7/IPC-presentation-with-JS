@@ -1,0 +1,161 @@
+<!-- Non-block send and Non-block receive -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300&family=Orbitron&family=Roboto:wght@300&family=VT323&display=swap');
+</style>
+    <link rel="stylesheet" href="messageStyle.css">
+    <title>Message Passing</title>
+    
+    
+</head>
+    <body onload="fun()" onkeydown="nav(event)">
+        <div class="slideCount">Slide: 8/14</div>
+        <a class="nav nxt2" style="display: block; text-decoration: none;" href="nonBlock.html">Next</a>
+        <div class="nav prv" id="prv">Prev</div>
+        <h1 style="background-color: mediumpurple; padding: 20px;margin: 0; color: white; text-align: center; border-bottom: 10px solid purple; margin-bottom: 140px;margin-top: -20px;width: 100%;box-shadow: 0 0 40px grey;">Blocked send and Blocked Receive</h1>
+        
+        
+        <div> 
+    
+        <button id="btn" style="position: absolute;bottom:35%;left:50px;font-size: 36px;">Send message</button>
+        </div>
+        <div id="boxes">
+            <textarea class="receiver" style="font-size: 18px;">
+            Blocked
+        </textarea>
+        <textarea class="textarea">
+            
+        </textarea>
+        </div>
+        
+        <div class="array">
+        <div class="array-box"></div>
+<div class="array-box"></div>
+            <div class="array-box"></div>
+            <div class="array-box"></div>
+            <div class="array-box"></div>
+        </div>
+        
+        <table class="status">
+        <tr>
+            <td></td>
+            <th style="color:white;background-color: royalblue;">Status</th>
+            </tr>
+            
+            <tr>
+            <td style="color: white;background-color: mediumspringgreen;">Sender</td>
+            <td id='senderStatus'></td>
+            </tr>
+            
+            <tr>
+            <td style="color: white;background-color:chartreuse">Receiver</td>
+            <td id='receiverStatus'></td>
+            </tr>
+        </table>
+    
+    </body>
+    
+    <script>
+        let i=0;
+        let init=810;
+        let box = document.getElementsByClassName('textarea');
+        document.getElementById('btn').addEventListener("click",function(){
+            
+           
+            document.getElementById('senderStatus').style.opacity=0;
+             document.getElementById('receiverStatus').style.opacity=0;
+            setTimeout(function(){
+                 document.getElementById('senderStatus').style.backgroundImage="url('redLight.png')";
+            
+            },400);
+            setTimeout(function(){
+                    document.getElementById('senderStatus').style.opacity=1;
+            },500);
+            
+            setTimeout(function(){
+                 document.getElementById('receiverStatus').style.backgroundImage="url('greenLight.png')";
+            
+            },400);
+            setTimeout(function(){
+                    document.getElementById('receiverStatus').style.opacity=1;
+            },500);
+            setTimeout(function(){
+            document.getElementById('senderStatus').style.opacity=0;
+             document.getElementById('receiverStatus').style.opacity=0;    
+            },2000);
+            
+            setTimeout(function(){
+                 document.getElementById('receiverStatus').style.backgroundImage="url('redLight.png')";
+            
+            },2300);
+            setTimeout(function(){
+                    document.getElementById('receiverStatus').style.opacity=1;
+            },2400);
+            
+            setTimeout(function(){
+                 document.getElementById('senderStatus').style.backgroundImage="url('greenLight.png')";
+            
+            },2300);
+            setTimeout(function(){
+                    document.getElementById('senderStatus').style.opacity=1;
+            },2400);
+            if(box[i].value===""){
+                box[i].value="(null)";
+            }
+            box[i].style.border = "none";
+            box[i].style.height = "120px";
+            box[i].style.transform = "translate(20px,15px)";
+            box[i].style.color="white";
+            box[i].style.backgroundColor="dodgerblue";
+            setTimeout(function(){
+            box[i].style.transform = "translate(" + (init) +  "px,15px)";    
+                i++;
+            },500);
+        let newBox = box[i].cloneNode(false);
+            newBox.style.fontSize="18px";
+            newBox.style.color="black";
+                newBox.value="Blocked";
+            document.getElementsByClassName('receiver')[0].style.backgroundColor="white";
+            document.getElementsByClassName('receiver')[0].value="Unblocked";
+            newBox.style.border="1px solid black";  
+            newBox.style.backgroundColor="lightgrey";
+            document.getElementById('boxes').appendChild(newBox);
+            setTimeout(function(){
+                document.getElementsByClassName('array-box')[4].style.backgroundColor="dodgerblue";
+                
+            },500);
+            setTimeout(function(){
+                box[i].style.fontSize="36px";
+                box[i].value="";
+            },2700);
+            setTimeout(function(){
+                box[i].value="Unblocked";
+                box[i-1].style.transform = "translate(" +(init+210)+ "px,15px)";
+                box[i-1].style.backgroundColor="lightgreen";
+                document.getElementsByClassName('array-box')[4].style.backgroundColor="white";
+            },1700);
+            setTimeout(function(){
+                box[i-1].style.display="none";
+                 document.getElementsByClassName('receiver')[0].style.backgroundColor="lightgrey";
+                document.getElementsByClassName('receiver')[0].value="Blocked";
+                newBox.style.backgroundColor="white";
+                newBox.style.color="black";
+            },3000);
+        });
+        function fun(){
+            document.body.style.opacity=1;
+        }
+        
+    function nav(event){
+        let key = event.key;
+        if(key == "n"){
+            window.location.href = "nonBlock.html";
+        } else if(key == "p"){
+            window.location.href="main2.html";
+        }
+    }
+    </script>
+</html>

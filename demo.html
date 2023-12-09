@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clock simulator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href='styles.css'>
+    </head>
+    <body>
+
+        
+        <div class="input">
+            <label>Hours: <input id="hr" type="number"></label>
+                    <label>Minutes: <input id="min" type="number"></label>
+            <label>Seconds: <input id="sec" type="number"></label>
+            <button id="show" onclick="setshow()">Show</button><br>
+                <select id="choice">
+            <option value="coincide">coincide</option>
+                    <option value="perpendicular">perpendicular</option>
+                    <option value="right angle">right angle</option>
+            </select>
+            <div id="fromto">
+            <fieldset>
+            <legend>From: </legend>
+                <label>Hours: <input id="fromhr" type="number"></label>
+                <label>Minutes: <input id="frommin" type="number"></label>
+                <label>Seconds: <input id="fromsec" type="number"></label>
+            </fieldset>
+            
+            <fieldset>
+            <legend>To: </legend>
+                <label>Hours: <input id="tohr" type="number"></label>
+                <label>Minutes: <input id="tomin" type="number"></label>
+                <label>Seconds: <input id="tosec" type="number"></label>
+            </fieldset>
+            </div>
+            <button id="set" onclick="coincide()">Set</button>
+            
+            <button class="nav" id="prev" onclick="prev()" disabled>&lt;</button><button class="nav" id="next" onclick="next()" disabled>&gt;</button>
+        </div>
+        <div class="container">
+            <div id="clock" class="clock">
+                <div class="label">
+                <h1>Nav Times</h1>
+                </div>
+            <div class="center"></div>
+                <div class="hrhand"></div>
+                <div class="minhand"></div>
+                <div id="second" class="sechand"></div>
+                <div id='mark' class="mark"></div>
+<!--
+                <div class="numberdiv">
+                    <p class="number">12</p>
+                </div>
+-->
+                
+            </div>
+            
+            
+        </div>
+        <h1 style="text-align: center;margin-top:2%;"><span id="digihr">10</span>:<span id="digimin">40</span>:<span id="digisec">32</span><span style="font-size: 0.5em;"> (GMT +5:30)</span></h1>
+            <br>
+        
+        
+        <script>
+            /*------------------------*/
+            let arr=[];
+            let navIndex=0;
+            let at = document.getElementById("fromhr");
+            let bt = document.getElementById("frommin");
+            let ct = document.getElementById("fromsec");
+            let currHr,currMin,currSec;
+            let hour = document.getElementsByClassName("hrhand")[0];
+            let min = document.getElementsByClassName("minhand")[0];
+            let second = document.getElementById("second");
+            let mark = document.getElementById('mark');
+            let clock = document.getElementById("clock");
+            let line = document.getElementById('line');
+            let line2 = document.getElementById('line2');
+            let x = -90,y=-90,z=-90;
+            let interval=1;
+            
+            
+            /*------------------------*/
+            
+            
+            
+            function setshow(){
+                x = document.getElementById('hr').value;
+                y = document.getElementById('min').value;
+                z = document.getElementById('sec').value;
+                show(x,y,z);
+            }
+            function show(a,b,c){
+                x = document.getElementById('hr').value;
+                y = document.getElementById('min').value;
+                z = document.getElementById('sec').value;
+                if(a>=24)a-=12;
+                x=-90 + (a*60)/2 + 30*(b/60);
+                y = -90 + 6*b + 6*(c/60);
+                z = -90 + 6*(c%60);
+                
+            }
+            
+            
+            
+            function coincide(){ 
+                document.getElementsByClassName("nav")[0].removeAttribute("disabled");
+                document.getElementsByClassName("nav")[1].removeAttribute("disabled");
+                let At = parseInt(at.value);
+                let Bt = parseInt(bt.value);
+                let Ct = parseInt(ct.value);
+                let a = At;
+                let b = Bt;
+                let c = Ct;
+                console.log(At);
+                let At2 = a*60 + b + c/60;
+                a = a*30 + b/2 + (c/60)/2;
+                console.log(a);
+                b = b*6 + (c/60)*6;
+                c = c/60;
+                console.log(b);
+                let d = parseInt(document.getElementById("tohr").value);
+                let e = parseInt(document.getElementById("tomin").value);
+                let f = parseInt(document.getElementById("tosec").value);
+                let z = NaN;
+                z = (d*60 + e + f/60);
+                console.log(z);
+                let y = NaN;
+                y = Math.floor(((11/2)*(z-At2)+(b-a))/360);
+                console.log("y = " + y);
+                for(let i =0;i<=y;i++){
+                    let x = (2*(i*360 + (a-b)))/11;
+                    arr.push(x);
+                }
+                console.log(arr);
+                currHr = At;
+                currMin = Bt;
+                currSec = Ct;
+                show(At,Bt+arr[0],Ct);
+            }
+            
+            function prev(){
+                if(navIndex == 0)navIndex=arr.length-1;
+                else navIndex = (navIndex-1)%arr.length;
+                show(currHr,currMin+arr[navIndex],currSec);
+            }
+            
+            function next(at,bt,ct){
+                navIndex = (navIndex+1)%arr.length;
+                show(currHr,currMin+arr[navIndex],currSec);
+            }
+            
+            let b=0;
+            let a = 30;
+            for(let i=0;i<11;i++){
+                let lines = document.getElementsByClassName("mark")[0];
+                let clone = lines.cloneNode(true);
+                document.getElementById('clock').appendChild(clone);
+ document.getElementById("clock").lastChild.style.transform="rotate("+a+"deg)";
+                a+=30;
+                b++;
+            }
+            
+            function rotate(){
+                 alert(clock.getBoundingClientRect().top);
+            }
+            
+            
+            
+            setInterval(()=>{
+                hour.style.transform = "rotate("+x+"deg)";
+                min.style.transform = "rotate("+y+"deg)";
+                second.style.transform = "rotate("+z+"deg)";
+                digital(x,y,z);
+                x=(x+((1/120)));
+                y=(y+((1/10)));   
+                z=(z+6);
+            },1*1000);
+            
+            function digital(x,y,z){
+                let dhr = document.getElementById('digihr');
+                let dmin = document.getElementById('digimin');
+                let dsec = document.getElementById("digisec");
+                times = [dhr,dmin,dsec];
+                angles = [x,y,z];
+                factors = [600, 10, 1/6];
+                dhr.innerHTML = Math.floor((x+90)/30)%24;
+                if(dhr.innerHTML.length==1)dhr.innerHTML='0'+dhr.innerHTML;
+                dmin.innerHTML = (Math.floor((y+90)/6)%60);
+                if(dmin.innerHTML.length==1)dmin.innerHTML='0'+dmin.innerHTML;
+                dsec.innerHTML = ((z+90)/6)%60;
+                if(dsec.innerHTML.length==1)dsec.innerHTML='0'+dsec.innerHTML;
+            }
+        </script>
+</body>
+</html>
